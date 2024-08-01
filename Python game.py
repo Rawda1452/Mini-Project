@@ -26,14 +26,14 @@ paddel2.goto(350, 0)
 
 #The Ball
 ball=turtle.Turtle()
-ball.speed(0)
+ball.speed(1)
 #shape and color
 ball.shape("circle")  
 ball.color("white") 
 #not to draw lines when move
 ball.penup()  
 #set the ball in centre
-ball.goto(400, 0)
+ball.goto(0, 0)
 #ball moves by 2 every time
 ball.dx=2
 ball.dy=-2
@@ -78,6 +78,9 @@ def paddel2_down():
 wind.listen() # tell the window to expect input 
 wind.onkeypress(paddel1_up, "w") # by pressing w , function paddel1_up is invoked 
 wind.onkeypress(paddel1_down, "s")
+wind.onkeypress(paddle2_up, "Up")
+wind.onkeypress(paddle2_down, "Down")
+
 
 # Main loop 
 while True:
@@ -111,19 +114,18 @@ while True:
          score.write(f"Player1: {p1_score} Player2: {p2_score}", align="center",
                     font=("Courier", 14, "normal"))
 
-          #ball rebound
+    #ball rebound
    #ball between top and bottom of paddle
-     if (ball.xcor()>340 and ball.xcor()<350) and (ball.ycor()<paddel2()+50 and ball.ycor()>paddel2()-50):
-         ball.setx(350)
-    #reverse direction
-         ball.dx*=-1
-    #same
-     if (ball.xcor()<-340 and ball.xcor()>-350) and (ball.ycor()<paddel1()+40 and ball.ycor()>paddel1()-40):
-         ball.setx(-350)
-    #reverse direction
-         ball.dx*=-1
-#paddel2 computer player
-     if paddel2.ycor() < ball.ycor() and abs(paddel2.ycor() - ball.ycor()) > 10:
-         paddel2_up()
-     if paddel2.ycor() > ball.ycor() and abs(paddel2.ycor() - ball.ycor()) > 10:
-         paddel2_down()
+    if (340 < ball.xcor() < 350) and (paddle2.ycor() - 50 < ball.ycor() < paddle2.ycor() + 50):
+        ball.setx(340)
+        ball.dx *= -1
+
+    if (-350 < ball.xcor() < -340) and (paddle1.ycor() - 50 < ball.ycor() < paddle1.ycor() + 50):
+        ball.setx(-340)
+        ball.dx *= -1
+
+    # Paddle2 as computer player
+    if paddle2.ycor() < ball.ycor() and abs(paddle2.ycor() - ball.ycor()) > 10:
+        paddle2_up()
+    if paddle2.ycor() > ball.ycor() and abs(paddle2.ycor() - ball.ycor()) > 10:
+        paddle2_down()
