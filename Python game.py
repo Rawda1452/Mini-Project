@@ -39,6 +39,18 @@ ball.dx=2
 ball.dy=-2
 
 
+# score text
+score = turtle.Turtle()
+score.speed(0)
+score.color("white")
+score.penup()
+score.goto(x=0, y=260)
+score.write("Player1: 0 Player2: 0", align="center",
+            font=("Courier", 14, "normal"))
+score.hideturtle()  # we hide the object because we only want to see the text
+p1_score, p2_score = 0, 0  # variables to hold player 1 & player 2 scores
+
+
 # Paddle1 up and down 
 def paddel1_up():
     y = paddel1.ycor() # get y coordinate of the paddle1
@@ -85,10 +97,20 @@ while True:
      if ball.xcor()>390:
          ball.goto(0,0)
          ball.dx*=-1
+         score.clear()
+         p1_score += 1
+         score.write(f"Player1: {p1_score} Player2: {p2_score}", align="center",
+                    font=("Courier", 14, "normal"))
+
 
      if ball.xcor()<-390:
          ball.goto(0,0)
          ball.dx*=-1
+         score.clear()
+         p2_score += 1
+         score.write(f"Player1: {p1_score} Player2: {p2_score}", align="center",
+                    font=("Courier", 14, "normal"))
+
           #ball rebound
    #ball between top and bottom of paddle
      if (ball.xcor()>340 and ball.xcor()<350) and (ball.ycor()<paddel2()+50 and ball.ycor()>paddel2()-50):
